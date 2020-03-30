@@ -1,0 +1,22 @@
+body{
+	padding-top: 60px;
+}
+.awak{
+	height: auto;
+	min-height: 79vh;
+}
+.bg-custom{
+	background-color: #212529;
+}
+.nav-item a{
+	color:#fff;
+}
+.nav-item a:hover{
+	color:#3cc1ff;
+}
+.navbar-brand{
+	color:#3cc1ff;
+}
+.navbar-brand:hover{
+	color:#0a94d5;
+}
