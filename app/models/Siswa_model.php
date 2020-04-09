@@ -21,8 +21,8 @@ class Siswa_model{
 	}
 
 	public function tambahSiswa($post){
-		$query = "INSERT INTO siswa(nama,kelas,jurusan,email) 
-					VALUES 
+		$query = "INSERT INTO siswa(nama,kelas,jurusan,email)
+					VALUES
 				  (:nama, :kelas, :jurusan, :email)";
 		$this->db->query($query);
 		$this->db->bind('nama', $post['nama']);
@@ -40,6 +40,28 @@ class Siswa_model{
 		$this->db->bind('nama', $nama);
 
 		$this->db->result();
+		return $this->db->rowCount();
+	}
+
+	public function deleteSiswa($id){
+		$query = "DELETE FROM siswa WHERE id=:id";
+		$this->db->query($query);
+		$this->db->bind('id', $id);
+		$this->db->execute();
+
+		return $this->db->rowCount();
+	}
+
+	public function ubahSiswa($post){
+		$query = "UPDATE siswa set nama=:nama, kelas=:kelas, jurusan=:jurusan, email=:email  where id=:id";
+		$this->db->query($query);
+		$this->db->bind('id', $post['id']);
+		$this->db->bind('nama', $post['nama']);
+		$this->db->bind('kelas', $post['kelas']);
+		$this->db->bind('jurusan', $post['jurusan']);
+		$this->db->bind('email', $post['email']);
+
+		$this->db->execute();
 		return $this->db->rowCount();
 	}
 }
