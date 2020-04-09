@@ -24,15 +24,5 @@ class Msg{
     }
   }
 
-  public static function setErrMsg($err=null){
-    if(!is_null($err)){
-      $error = '<div class="alert alert-dismissible fade show alert-msg alert-danger role="alert">
-              '. $err .'
-              <button type="button" class="close" data-dismiss="alert" aria-label="Close">
-              <span aria-hidden="true">&times;</span>
-              </button>
-            </div>';
-      echo $error;
-    }
-  }
+
 }
