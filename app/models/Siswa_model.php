@@ -25,10 +25,16 @@ class Siswa_model{
 					VALUES
 				  (:nama, :kelas, :jurusan, :email)";
 		$this->db->query($query);
-		$this->db->bind('nama', $post['nama']);
-		$this->db->bind('kelas', $post['kelas']);
-		$this->db->bind('jurusan', $post['jurusan']);
-		$this->db->bind('email', $post['email']);
+
+		$nama = htmlentities($post['nama']);
+		$kelas = htmlentities($post['kelas']);
+		$jurusan = htmlentities($post['jurusan']);
+		$email = htmlentities($post['email']);
+
+		$this->db->bind('nama', $nama);
+		$this->db->bind('kelas', $kelas);
+		$this->db->bind('jurusan', $jurusan);
+		$this->db->bind('email', $email);
 		$this->db->execute();
 
 		return $this->db->rowCount();
@@ -55,13 +61,39 @@ class Siswa_model{
 	public function ubahSiswa($post){
 		$query = "UPDATE siswa set nama=:nama, kelas=:kelas, jurusan=:jurusan, email=:email  where id=:id";
 		$this->db->query($query);
+
+		$nama = htmlentities($post['nama']);
+		$kelas = htmlentities($post['kelas']);
+		$jurusan = htmlentities($post['jurusan']);
+		$email = htmlentities($post['email']);
+
 		$this->db->bind('id', $post['id']);
-		$this->db->bind('nama', $post['nama']);
-		$this->db->bind('kelas', $post['kelas']);
-		$this->db->bind('jurusan', $post['jurusan']);
-		$this->db->bind('email', $post['email']);
+		$this->db->bind('nama', $nama);
+		$this->db->bind('kelas', $kelas);
+		$this->db->bind('jurusan', $jurusan);
+		$this->db->bind('email', $email);
 
 		$this->db->execute();
 		return $this->db->rowCount();
+	}
+
+	public function cariSiswa($siswa){
+
+		$query = "SELECT * FROM siswa WHERE nama LIKE :nama OR jurusan LIKE :jurusan";
+		$this->db->query($query);
+		$this->db->bind('nama', "%$siswa%");
+		$this->db->bind('jurusan', "%$siswa%");
+
+		$this->db->execute();
+		$jml = $this->db->rowCount();
+
+		if($jml > 0){
+
+			return $this->db->resultAll();
+
+		}else{
+			$a = array();
+			return $a;
+		}
 	}
 }
