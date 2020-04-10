@@ -30,15 +30,29 @@ class Siswa extends Controller{
 
 	public function tambah(){
 		$nama = Input::get('nama');
-		if($this->cekValidasi($nama)){
-			if($this->model('Siswa_model')->tambahSiswa(Input::get()) > 0){
-				Msg::setMSG('Data siswa sukses ditambahkan', 'success');
-				header('Location:'. BASEURL . 'siswa');
-				exit();
+		if(is_null($this->cekDataSiswa($nama))){
+			if($this->cekValidasi($nama)){
+				if($this->model('Siswa_model')->tambahSiswa(Input::get()) > 0){
+					Msg::setMSG('Data siswa sukses ditambahkan', 'success');
+					header('Location:'. BASEURL . 'siswa');
+					exit();
+				}
+
+			}else{
+
+				$errArr = array_unique($this->eror);
+
+				for($i=0; $i < count($errArr); $i++){
+					echo $errArr[$i];
+					Msg::setMSG($errArr[$i], 'danger');
+
+					header('Location:'. BASEURL . 'siswa');
+					exit();
+
+				}
+
 			}
-
 		}else{
-
 			$errArr = array_unique($this->eror);
 
 			for($i=0; $i < count($errArr); $i++){
@@ -49,7 +63,6 @@ class Siswa extends Controller{
 				exit();
 
 			}
-
 		}
 	}
 
@@ -113,7 +126,7 @@ class Siswa extends Controller{
 
 	public function cekValidasi($nama=null){
 		// var_dump($this->cekDataSiswa($nama));
-		if(is_null($this->cekDataSiswa($nama))){
+		// if(is_null($this->cekDataSiswa($nama))){
 			if($this->validasiUser()->passed()){
 				return true;
 
@@ -124,12 +137,12 @@ class Siswa extends Controller{
 				return false;
 			}
 
-		}else{
-			foreach ($this->validasiUser()->errors() as $erorr) {
-				$this->eror[] = $erorr;
-			}
-			return false;
-		}
+		// }else{
+		// 	foreach ($this->validasiUser()->errors() as $erorr) {
+		// 		$this->eror[] = $erorr;
+		// 	}
+		// 	return false;
+		// }
 
 	}
 
@@ -144,5 +157,25 @@ class Siswa extends Controller{
 	}
 
 
+	public function getCari(){
+
+		if($_SERVER['REQUEST_METHOD'] == "POST"){
+			$search = Input::get('search');
+			if(isset($search)){
+				$resource = $this->model('Siswa_model')->cariSiswa($search);
+				$data['error'] = '';
+				if(!$resource){
+					$data['error'] = '<div class="mt-2 alert alert-secondary">Maaf data yang anda cari tidak ditemukan</div>';
+				}
+				$data['siswa'] = $resource;
+				$this->view('siswa/cari', $data);
+
+			}
+		}else{
+			header('Location:'. BASEURL . 'siswa');
+			exit();
+		}
+
+	}
 
 }
