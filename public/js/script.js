@@ -1,7 +1,5 @@
 $(function(){
 
-
-
   $('.btnTambah').on('click', function(){
     $('#addSiswaLabel').html('Tambah Data Siswa');
     $('#btnSubmitModal').html('Tambah');
@@ -37,5 +35,22 @@ $(function(){
     });
 
   })
+
+  $('#nama').keypress(function(){
+    check_username();
+  });
+
+  function check_username(){
+    var user_len = $('#nama').val().length;
+    console.log(user_len);
+    if(user_len < 5 || user_len > 20){
+      // $('#user_error').html("harus 5 karkter")
+      $('#nama').removeClass('bener');
+      $('#nama').addClass('salah');
+    }else{
+      $('#nama').removeClass('salah');
+      $('#nama').addClass('bener');
+    }
+  }
 
 });
