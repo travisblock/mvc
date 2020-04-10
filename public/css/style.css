@@ -20,3 +20,16 @@ body{
 .navbar-brand:hover{
 	color:#0a94d5;
 }
+
+.salah{
+	border: 2px solid red;
+}
+
+.bener{
+	border: 2px solid green;
+}
+
+/* .form-control:focus{
+	box-shadow: none;
+	border-color: g!important;
+} */
