@@ -32,12 +32,6 @@ Kegiatan yang saya lakukan waktu libur sekolah.
 - Database : MySQL
 - Database Driver : PDO
 
-## Author:
-
-- Fb : [AJID STARK](https://fb.me/ajidstark)
-- Twitter : [@ajidstark](https://twitter.com/ajidstark)
-- LinkedIn : [Yusuf Al Majid](https://www.linkedin.com/in/yusuf-al-majid/)
-
 
 ## Thanks to:
 
